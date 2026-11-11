@@ -1,8 +1,12 @@
-<b><h4>Cours de Clustering de 4modIA</h4></b> 
+<b>
 
-  1. Introduction
-  2. Dissimilarité, distance et inertie
-  3. Kmeans et variantes
-  4. DBSCAN
-  5. Classification hiérarchique
-  6. Modèles de mélange
+<h4>Cours de Clustering de 4modIA</h4>
+
+</b>
+
+1.  Introduction [PDF](slides/2627-Slides-Intro-Clustering.pdf)
+2.  Dissimilarité, distance et inertie [PDF](slides/2627-Slides-Distances-Clustering.pdf)
+3.  Kmeans et variantes [PDF-Partie1](slides/2627-Slides-Kmeans-DBSCAN.pdf)
+4.  DBSCAN [PDF-Partie2](slides/2627-Slides-Kmeans-DBSCAN.pdf)
+5.  Classification hiérarchique [PDF](slides/2627-Slides-CAH-Clustering.pdf)
+6.  Modèles de mélange [PDF](slides/2627-Slides-Melanges-Clustering.pdf)

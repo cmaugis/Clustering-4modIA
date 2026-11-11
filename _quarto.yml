@@ -1,6 +1,8 @@
 project:
   type: website
   output-dir: docs 
+  resources: 
+    - slides
   render:
     - index.qmd
     - 2627-TP1-Kmeans-Sujet.qmd
@@ -9,7 +11,7 @@ project:
     - 2627-TP4-MelangesGMM-Sujet.qmd
     
 website:
-  title: "Clustering-4modIA-TP"
+  title: "Clustering-4modIA"
   navbar:
     left:
       - text: "TP1-Kmeans"
