@@ -1,0 +1,8 @@
+<b><h4>Cours de Clustering de 4modIA</h4></b> 
+
+  1. Introduction
+  2. Dissimilarité, distance et inertie
+  3. Kmeans et variantes
+  4. DBSCAN
+  5. Classification hiérarchique
+  6. Modèles de mélange

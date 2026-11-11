@@ -1,0 +1,35 @@
+project:
+  type: website
+  output-dir: docs 
+  render:
+    - index.qmd
+    - 2627-TP1-Kmeans-Sujet.qmd
+    - 2627-TP2-DBSCAN-Sujet.qmd
+    - 2627-TP3-CAH-Sujet.qmd
+    - 2627-TP4-MelangesGMM-Sujet.qmd
+    
+website:
+  title: "Clustering-4modIA-TP"
+  navbar:
+    left:
+      - text: "TP1-Kmeans"
+        href: 2627-TP1-Kmeans-Sujet.qmd
+      - text: "TP2-DBSCAN"
+        href: 2627-TP2-DBSCAN-Sujet.qmd
+      - text: "TP3-CAH"
+        href: 2627-TP3-CAH-Sujet.qmd
+      - text: "TP4-GMM"
+        href: 2627-TP4-MelangesGMM-Sujet.qmd
+    logo: LogoINSAToulouse.jpg
+    search: true 
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+execute:
+  freeze: auto
+  
+editor: visual
+

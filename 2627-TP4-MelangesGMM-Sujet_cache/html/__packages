@@ -1,0 +1,12 @@
+mclust
+Rcpp
+Rmixmod
+ggplot2
+gridExtra
+FactoMineR
+factoextra
+reshape2
+ggalluvial
+leaflet
+sf
+dplyr

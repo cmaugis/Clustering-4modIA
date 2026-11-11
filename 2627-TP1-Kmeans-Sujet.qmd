@@ -1,0 +1,527 @@
+---
+title: "TP 1 - Kmeans et ses variantes"
+subtitle: "Sujet"
+execute:
+  echo: true
+  cache: true
+  message: false
+  warning: false
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    toc-title: Contents
+    toc-location: left
+    number-sections: true
+    css: styles.css
+---
+
+L'objectif de ce TP est d'illustrer les notions abordées dans le chapitre dédié aux algorithmes de clustering de type Kmeans. Les librairies R nécessaires pour ce TP :
+
+```{r}
+#| echo: true
+#| error: false
+#| warning: false
+#| message: false
+
+library(forcats)
+library(ggplot2)
+library(corrplot)
+library(factoextra)
+library(FactoMineR)
+library(mclust)
+library(cluster)
+library(ppclust)
+library(ggalluvial)
+library(klaR)
+library(gridExtra)
+library(reshape2)
+library(leaflet)
+library(sf)
+library(dplyr)
+```
+
+# Clustering des départements selon leur climat (données quantitatives)
+
+## Analyse descriptive des données
+
+### Présentation des données
+
+Dans ce TP, on va utiliser le jeu de données `TemperaturesDepartements2018-2024.csv` disponible sur la page moodle du cours.
+
+Ce jeu de données a été construit à partir du jeu de données public "Température quotidienne départementale (depuis janvier 2018)" produit par RTE et disponible sur le site <https://www.data.gouv.fr/fr/>. Ce fichier donne, pour chaque jour et chaque département de France métropolitaine, les températures minimale (TMin), maximale (TMax) et moyenne (TMoy) en °C. À partir des données journalières des sept années complètes 2018 à 2024, on a calculé pour chacun des $n=96$ départements les indicateurs climatiques suivants :
+
+-   t_annuelle : la température moyenne annuelle (en °C),
+-   t_hiver : la température moyenne en hiver (décembre, janvier, février),
+-   t_ete : la température moyenne en été (juin, juillet, août),
+-   tmin_hiver : la moyenne des températures minimales en hiver,
+-   tmax_ete : la moyenne des températures maximales en été,
+-   ampl_annuelle : l'amplitude thermique annuelle (température moyenne du mois le plus chaud moins celle du mois le plus froid), qui mesure la continentalité du climat,
+-   ampl_jour : l'amplitude thermique journalière moyenne (TMax - TMin),
+-   j_gel : le nombre moyen de jours de gel par an (TMin \< 0°C),
+-   j_chaud : le nombre moyen de jours chauds par an (TMax $\geq$ 30°C).
+
+Chaque département est également décrit par les variables qualitatives suivantes, qui pourront servir à interpréter les classifications obtenues :
+
+-   code_dep : le code du département (à mettre en nom de ligne)
+-   departement : le nom du département,
+-   region : la région administrative (13 régions),
+-   littoral : la façade maritime du département ("Manche-Mer du Nord", "Atlantique", "Méditerranée") ou "Intérieur" pour un département sans façade maritime,
+-   massif : "Oui" si l'altitude moyenne du département est supérieure ou égale à 440 m, "Non" sinon 
+
+**Question 1.** Récupérez sur moodle le jeu de données `TemperaturesDepartements2018-2024.csv` et chargez-le sous R. Utilisez la variable `code_dep` comme nom des lignes puis supprimez-la.
+
+```{r}
+#| eval: false
+temp <- read.table(.......)
+rownames(temp) <- ....
+temp<-temp[,-1]
+```
+
+Vérifiez la nature des variables à l'aide de la fonction `str()`. Modifiez si nécessaire les variables qualitatives (à l'aide de `as.factor()`).
+
+```{r}
+#| eval: false
+
+str(temp)
+temp$region <- ....
+# A COMPLETER
+summary(temp)
+```
+
+### Statistiques descriptives
+
+**Question 2.** Faites quelques statistiques descriptives pour faire connaissance avec le jeu de données, avec des choix adaptés à la nature des variables. En particulier, étudiez les corrélations entre les variables quantitatives.
+
+```{r}
+#| eval: false
+# A completer
+```
+
+### Analyse en composantes principales
+
+**Question :** Faites une ACP sur les données. Combien de composantes principales faut-il retenir ? Interprétez les premiers axes principaux.
+
+```{r}
+#| eval: false
+resacp <- PCA(.....)
+# A completer
+```
+
+### Préparation des données
+
+**Question :** Pour la suite, on va utiliser l'ensemble des variables quantitatives pour faire de la classification non supervisée des départements. 
+
+Pensez-vous qu'il est nécessaire de transformer les variables quantitatives dans l'objectif de clustering avec un algorithme des Kmeans ? Si oui, mettez en place cette transformation.
+
+```{r}
+#| eval: false
+
+tempinit <- temp
+temp[,quanti] <- scale(...)
+Xtemp <- temp[,quanti]
+
+```
+
+### Fonctions auxiliaires
+
+Pour la suite, vous pourrez visualiser les clusterings obtenus sur la carte de France à l'aide de la fonction `visualclust()` suivante : 
+
+```{r}
+#| message: false
+#| warning: false
+
+# fonction auxiliaire pour représentation géographique
+# varquali : variable qualitative (par exemple une classification), couleur par modalité
+# codes    : codes des départements correspondant à varquali (par défaut les noms de varquali)
+
+departements_geojson <- st_read("Depart.geojson", quiet = TRUE)
+
+visualclust <- function(departements_geojson, varquali, codes = names(varquali)){
+  if (is.null(codes)) stop("Préciser les codes des départements avec l'argument codes")
+  varquali <- as.factor(varquali)
+  df <- departements_geojson %>%
+    left_join(data.frame(code = as.character(codes), classification = varquali),
+              by = "code")
+  # Définir des couleurs (une par modalité)
+  pal <- colorFactor(topo.colors(nlevels(varquali)), levels(varquali))
+
+  # Créer la carte Leaflet
+  # pas de fond de carte OpenStreetMap (addTiles()), bloqué hors d'un site web
+  gcarte <- leaflet(df) %>%
+    addPolygons(
+      fillColor = ~pal(classification),  # Couleur en fonction de la classification
+      weight = 1,
+      opacity = 1,
+      color = "black",
+      dashArray = "3",
+      fillOpacity = 0.7,
+      popup = ~paste("Département : ", nom, "<br>Classification : ", classification)
+    ) %>%
+    addLegend(
+      pal = pal,
+      values = ~classification,
+      title = "Classification",
+      opacity = 1
+    )
+  return(gcarte)
+}
+```
+
+Vous pourrez comparer deux clusterings à l'aide d'un graphique alluvial en utilisant la fonction `alluvtwoclust()` suivante : 
+
+```{r}
+alluvtwoclust<-function(classif1,classif2,nom1,nom2){
+  clust1<-paste0(nom1,"-k",classif1)
+  clust2<-paste0(nom2,"-k",classif2)
+  Tab<-melt(table(clust1,clust2))
+  g<-ggplot(Tab,aes(y=value,axis1=clust1,axis2=clust2))+
+    geom_alluvium(aes(fill=clust1))+
+    geom_stratum(width = 1/12)+
+    geom_text(stat = "stratum", aes(label = after_stat(stratum)))+
+    theme(legend.position = "none")
+  return(g)
+}
+```
+
+Pour interpréter les classes, la fonction `profilclust()` suivante trace la distribution de chaque variable quantitative (dans ses unités d'origine) par classe :
+
+```{r}
+# clust : clustering étudié
+# Data  : données quantitatives (non centrées-réduites pour garder les unités)
+# output : violin-plots de chaque variable par classe
+
+profilclust <- function(clust, Data){
+  df <- data.frame(Data, Classe = as.factor(clust))
+  df <- melt(df, id = "Classe")
+  g <- ggplot(df, aes(x = Classe, y = value, fill = Classe)) +
+    geom_violin() +
+    facet_wrap(~variable, scales = "free_y") +
+    xlab("") + ylab("") + theme(legend.position = "none")
+  return(g)
+}
+```
+
+## Classification avec l'algorithme des Kmeans
+
+### A K=3 fixé
+
+**Question :** A l'aide de la fonction `kmeans()`, faites une classification non supervisée en 3 classes des départements. Regardez les options disponibles dans la fonction `kmeans()`.
+
+```{r}
+#| eval: false
+
+set.seed(1234)
+help(kmeans)
+reskmeans<-kmeans(....)
+```
+
+**Question :** Combien a-ton de départements par classe ? Visualisez la classification obtenue dans le premier plan de l'ACP et géographiquement. 
+
+```{r}
+#| eval: false
+
+table(...)
+fviz_pca_ind(...)
+visualclust(departements_geojson, varquali=as.factor(reskmeans$cluster), codes=rownames(Xtemp))
+```
+
+**Question :** La classification obtenue précédemment a-t-elle un lien avec la façade maritime ? Avec les massifs montagneux ? Vous pouvez vous aider de la fonction `table()`, la fonction `adjustedRandIndex()` de la librairie `mclust`, ...
+
+```{r}
+#| eval: false
+# A COMPLETER
+```
+
+### Choix du nombre de classes
+
+**Question :** On s'intéresse dans cette section au choix du nombre de classes $K$ en étudiant l'évolution de l'inertie intraclasse. En faisant varier $K$ entre 2 et 15, calculez l'inertie intraclasse associée à chaque classification obtenue. Tracez l'évolution de l'inertie intraclasse en fonction du nombre de classes. Qu'en concluez-vous ?
+
+```{r}
+#| eval: false
+# A completer
+Kmax<-15
+reskmeanscl<-matrix(0,nrow=nrow(Xtemp),ncol=Kmax-1)
+Iintra<-NULL
+for (k in 2:Kmax){
+  resaux<-kmeans(...)
+  reskmeanscl[,k-1]<-resaux$...
+  Iintra<-c(Iintra,resaux$...)
+}
+
+df<-data.frame(K=2:Kmax,Iintra=Iintra)
+ggplot(df,aes(x=K,y=Iintra))+
+  geom_line()+
+  geom_point()+
+  xlab("Nombre de classes")+
+  ylab("Inertie intraclasse")
+```
+
+**Question :** Reprendre la question du choix du nombre de classes en utilisant le critère silhouette (vous pouvez vous aider de la fonction `silhouette()` de la librairie `cluster`). Pour la classification sélectionnée, représentez les poids $s(i)$ de chaque individu à l'aide de la fonction `fviz_silhouette()`.
+
+```{r}
+#| eval: false
+
+# A COMPLETER
+Silhou<-NULL
+for (k in 2:Kmax){
+   aux<-silhouette(..., daisy(Xtemp))
+   Silhou<-c(Silhou,mean(aux[,3]))
+}
+
+df<-data.frame(K=2:Kmax,Silhouette=Silhou)
+ggplot(df,aes(x=K,y=Silhouette))+
+  geom_point()+
+  geom_line()+theme(legend.position = "bottom")
+
+aux<-silhouette(...)
+fviz_silhouette(aux)+theme(plot.title = element_text(size =9))
+rm(df,Silhou,aux)
+```
+
+**Question :** Étudiez la classification en $K=5$ classes. Comparez cette classification avec celle en $K=3$. 
+
+```{r}
+#| eval: false
+
+# A COMPLETER
+```
+
+## Classification avec l'algorithme PAM
+
+**Question :** Déterminez une classification en $K=3$ classes des départements en utilisant la méthode PAM (fonction `pam()`de la librairie `cluster`) et représentez graphiquement la classification obtenue. Quels sont les départements médoïdes ? Comparez avec la classification en $K=3$ classes obtenue avec la méthode des Kmeans.
+
+```{r}
+#| eval: false
+# A COMPLETER
+
+resPAM<-pam(x=....,k=..,metric=...)
+resPAM$medoids
+resPAM$id.med
+
+fviz_pca_ind(resacp,col.ind=as.factor(resPAM$clustering),geom = c("point"),axes=c(1,2))
+visualclust(...)
+
+adjustedRandIndex(......)
+table(.......)
+
+alluvtwoclust(......)
+```
+
+**Question :** Déterminez le nombre de classes optimal par le critère Silhouette pour $K$ variant entre 2 et 15 avec l'algorithme PAM. Commentez la classification retenue. Est-elle proche de celle obtenue avec l'algorithme des Kmeans ?
+
+```{r}
+#| eval: false
+# A completer
+
+Kmax<-15
+resPAMcl<-matrix(0,nrow=nrow(Xtemp),ncol=Kmax-1)
+Silhou<-NULL
+for (k in 2:Kmax){
+  resaux<-pam(.....)
+  resPAMcl[,k-1]<-resaux$clustering
+  aux<-silhouette(resPAMcl[,k-1], daisy(Xtemp))
+  Silhou<-c(Silhou,......)
+}
+
+df<-data.frame(K=2:Kmax,Silhouette=Silhou)
+ggplot(df,aes(x=K,y=Silhouette))+
+  geom_point()+
+  geom_line()+theme(legend.position = "bottom")
+
+aux<-silhouette(resPAMcl[,...], daisy(Xtemp))
+fviz_silhouette(aux)+theme(plot.title = element_text(size =9))
+
+adjustedRandIndex(.....)
+table(.....)
+```
+
+## Classification avec l'algorithme fuzzy c-means
+
+### Présentation
+
+Avec les algorithmes de clustering précédents (Kmeans, PAM) nous obtenons une classification "dure" au sens que chaque individu ne peut appartenir qu'à une seule classe et chaque individu participe avec le même poids à la construction des classes. Une classification dure $\mathcal{P}_K=\{\mathcal{C}_1,\ldots,\mathcal{C}_K\}$ peut se traduire en une matrice $Z=(z_{ik})_{\underset{1\leq k \leq K}{1\leq i \leq n}}$ avec $z_{ik}=1$ si $i\in\mathcal{C}_k$ et 0 sinon. Dans cette section, nous allons nous intéresser à une adaptation de l'algorithme des Kmeans, appelée *fuzzy c-means*. L'idée est de retourner une classification *fuzzy* c'est-à-dire une matrice $W=(\omega_{ik})_{\underset{1\leq k \leq K}{1\leq i \leq n}}$ avec $\forall i,\ k,\ \omega_{ik}\geq 0$ et $\forall i,\ \underset{k=1}{\stackrel{K}{\sum}} \omega_{ik}=1$. On donne ainsi plutôt un poids $\omega_{ik}$ que l'individu $i$ appartienne à la classe $\mathcal{C}_k$.
+
+L'algorithme fuzzy c-means a pour fonction objective
+
+$$
+\underset{W,\{m_1,\ldots,m_K\}}{\mbox{argmin}}\ \underset{i=1}{\stackrel{n}{\sum}}\underset{k=1}{\stackrel{K}{\sum}} (\omega_{ik})^\gamma\ \|x_i - m_k\|^2
+$$ 
+où $X=(x_1,\ldots,x_n)'$ est la matrice des données, $\gamma\in[1,+\infty[$, $m_k$ est le centre de la classe $\mathcal{C}_k$.
+
+Dans le même principe que l'algorithme des Kmeans, l'algorithme fuzzy c-means est un algorithme itératif :
+
+-   Step 1: Initialisation des poids $W^{(0)}$
+-   Step 2: A l'itération $r$, on calcule les centres des classes
+
+$$
+m_k^{(r)} = \frac{\underset{i=1}{\stackrel{n}{\sum}} (\omega_{ik}^{(r-1)})^\gamma x_i}{\underset{i=1}{\stackrel{n}{\sum}} (\omega_{ik}^{(r-1)})^\gamma}
+$$
+
+-   Step 3: Mise à jour des poids ($\gamma>1$) $$
+    \omega_{ik}^{(r)} = \left[\underset{\ell=1}{\stackrel{K}{\sum}} \left(\frac{\|x_i - m_k^{(r)}\|^2}{\|x_i - m_\ell^{(r)}\|^2}\right)^{\frac{1}{\gamma-1}}  \right]^{-1}
+    $$
+
+-   Step 4: Si $\|W^{(r)} - W^{(r-1)}\|<$ seuil, on s'arrête, sinon on retourne à l'étape 2.
+
+En général, la puissance choisie sur les poids est $\gamma=2$. Dans le cas $\gamma=1$, on retrouve l'algorithme des Kmeans.
+
+### Application avec R
+
+Nous allons ici nous appuyer sur la fonction `fcm()` de la librairie `ppclust`.
+
+**Question :** Utilisez cet algorithme pour obtenir une classification en $5$ classes. Comment sont initialisés les poids ? Comment est obtenue la classification finale ? A l'aide des poids, étudiez la stabilité des classes. Vous pouvez pour cela étudier les poids des individus par classe.
+
+```{r}
+#| eval: false
+# A COMPLETER
+library(ppclust)
+resfcm<-fcm(...)
+```
+
+**Question :** Représentez la classification obtenue sur le premier plan de l'ACP en nuançant selon les poids.
+
+```{r}
+#| eval: false
+# A COMPLETER
+fviz_pca_ind(resacp,axes=c(1,2),geom=c("point"),col.ind= ....... )+
+scale_color_gradient2(low="white", mid="blue",high="red", midpoint=0.8, space = "Lab")
+```
+
+**Question** : Comparez les classifications obtenues avec Kmeans et fuzzy c-means. Commentez.
+
+```{r}
+#| eval: false
+# A COMPLETER
+```
+
+# Clustering des données Zoo
+
+Dans cette partie, on souhaite obtenir une classification de $n=101$ animaux d'un zoo en fonction de leurs caractéristiques anatomiques et physiologiques. On utilise le jeu de données `zoo_restreint.txt`, dans lequel chaque animal est décrit par 12 variables qualitatives (majoritairement binaires) : `poils`, `plumes`, `oeufs` (ovipare), `lait` (allaite ses petits), `vole`, `aquatique`, `dents`, `vertebres`, `respire` (respiration aérienne), `nageoires`, `pattes` (nombre de pattes : 0, 2, 4, 5, 6 ou 8) et `queue`. Les variables binaires sont codées 1 (oui) / 0 (non).
+
+Ce jeu de données est une version simplifiée du jeu de données zoo de l'UCI Machine Learning Repository.
+
+## Statistiques descriptives
+
+**Question :** Commencez par charger le jeu de données `zoo_restreint.txt` et faites quelques statistiques descriptives pour vous familiariser avec ce jeu de données.
+
+```{r}
+#| eval: false
+zoo<-read.table("zoo_restreint.txt",header=T,stringsAsFactors = TRUE,encoding = "UTF-8")
+# A COMPLETER
+```
+
+**Question :** Faites une analyse en composantes multiples de ce jeu de données.
+
+```{r}
+#| eval: false
+
+# A COMPLETER
+res.mca<-MCA(....)
+fviz_screeplot(res.mca)
+fviz_mca_ind(.....)
+fviz_mca_var(......)
+```
+
+## Fonction auxiliaire pour la suite
+
+Pour la suite du TP, on pourra utiliser la fonction auxiliaire `barplotClus()` suivante, qui permet de tracer la répartition des modalités de variables qualitatives pour chaque classe d'un clustering donné.
+
+```{r}
+# clust : clustering étudié
+# Data  : jeu de données (variables qualitatives)
+# J     : indices des variables de Data à représenter
+# output : liste de graphiques (un par variable de J) donnant, pour chaque classe de clust,
+#          la répartition (fréquences) des modalités de la variable
+
+barplotClus <- function(clust, Data, J) {
+  p <- list()
+  for (j in seq_along(J)) {
+    # fréquences des modalités de la variable J[j] dans chaque classe
+    freq <- as.data.frame(prop.table(table(clust = clust, value = Data[, J[j]]), margin = 1),
+                          responseName = "perc")
+    p[[j]] <- ggplot(freq, aes(x = clust, y = perc, fill = value)) +
+      geom_bar(stat = "identity") +
+      labs(x = "Classe", y = "Fréquence", fill = colnames(Data)[J[j]])
+  }
+  return(p)
+}
+```
+
+## Clustering à l'aide des Kmodes
+
+Dans cette partie, nous allons utiliser la méthode des Kmodes introduite par Huang (1998). Rappelons que cette méthode est une extension des Kmeans dans le cas des données qualitatives. Les modifications par rapport aux Kmeans sont
+
+-   le changement de distance : on utilise la dissimilarité basée sur l'appariement simple
+
+$$
+d(\mathbf{x}_i,\mathbf{x}_\ell) = \underset{j=1}{\stackrel{p}{\sum}}\ \mathbb{1}_{x_{ij}\neq x_{\ell j}}
+$$
+
+-   le centre d'une classe est calculé en fonction des fréquences des modalités majoritaires présentes dans cette classe: pour la classe $\mathcal{C}_k$,
+
+$$
+\mathbf{m}_k=(m_{k1},\ldots,m_{kp}) \textrm{ avec } m_{kj}= \underset{u_1,\ldots,u_{s_j}}{\mbox{argmax}}\ \underset{i\in\mathcal C_k}{\sum}\ \mathbb{1}_{x_{ij}= u_{s_j}}
+$$
+
+**Question :** A l'aide de la fonction `kmodes()`de la librairie `klaR`, déterminez une classification en $K=6$ classes des animaux. Visualisez la classification obtenue. Vous pouvez vous aider de la fonction auxiliaire `barplotClus()` pour interpréter la classification.
+
+```{r}
+#| eval: false
+library(klaR)
+reskmodes<-kmodes(....)
+```
+
+**Question :** Pour déterminer le nombre de classes, la méthode du coude peut être utilisée en remplaçant l'inertie intra-classe par le critère "Within Cluster Difference"
+
+$$
+WCD(K) = \underset{k=1}{\stackrel{K}{\sum}} \underset{i\in\mathcal C_k}{\sum}\ d(x_i,m_k)  
+$$
+
+où $d(.,.)$ est l'appariement simple et $m_k$ est le centre de la classe $\mathcal C_k$.
+
+Tracez la courbe $K\mapsto WCD(K)$ pour déterminer le nombre de classes optimal. Vous pouvez vous aider des sorties de la fonction `kmodes()`.
+
+```{r}
+#| eval: false
+# A COMPLETER
+WithinDiff<-NULL
+Kmax<-10
+Clust<-matrix(0,nrow=nrow(zoo),ncol=Kmax)
+for (k in 1:Kmax){
+  aux<-kmodes(.........)
+  WithinDiff<-c(WithinDiff,..........)
+  Clust[,k]<-aux$cluster
+}
+
+auxdf<-data.frame(NbCluster=1:Kmax,WithinDiff=WithinDiff)
+ggplot(auxdf,aes(x=NbCluster,y=WithinDiff))+geom_point()+
+  geom_line()
+```
+
+**Question** Etudiez la classification retenue. On la notera `clustkmodes` pour la suite
+
+```{r}
+#| eval: false
+# A COMPLETER
+clustkmodes<- ...
+```
+
+## Clustering avec les Kmeans sur les coordonnées de ACM
+
+Une seconde stratégie est de partir des coordonnées de l'analyse des correspondances multiples (ACM) et d'utiliser un algorithme plus usuel sur données quantitatives. Dans cette section, on va appliquer l'algorithme des Kmeans.
+
+**Question :** Appliquez l'algorithme des Kmeans sur les coordonnées de l'ACM. Pour la détermination du nombre de classes, vous pouvez utiliser l'évolution de l'inertie intra-classe et le critère silhouette.
+
+```{r}
+#| eval: false
+# A COMPLETER
+```
+
+**Question :** Etudiez la classification retenue. Comparez avec la classification obtenue précédemment avec les Kmodes.
+
+```{r}
+#| eval: false
+# A COMPLETER
+```
+

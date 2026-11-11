@@ -1,0 +1,97 @@
+"code_dep" "departement" "region" "littoral" "massif" "t_annuelle" "t_hiver" "tmin_hiver" "j_gel" "t_ete" "tmax_ete" "j_chaud" "ampl_annuelle" "ampl_jour"
+"1" "01" "Ain" "Auvergne-Rhône-Alpes" "Intérieur" "Non" 12.95 5.04 1.36 55.1 21.36 28.22 39 18.05 10.73
+"2" "02" "Aisne" "Hauts-de-France" "Intérieur" "Non" 11.76 5.27 2.58 35.3 18.77 24.61 11.3 15 8.77
+"3" "03" "Allier" "Auvergne-Rhône-Alpes" "Intérieur" "Non" 12.78 5.58 1.48 57.1 20.54 27.51 35 16.56 11.5
+"4" "04" "Alpes-de-Haute-Provence" "Provence-Alpes-Côte d'Azur" "Intérieur" "Oui" 14.29 6.43 1.46 37.7 23.32 30.62 61.1 18.89 12.04
+"5" "05" "Hautes-Alpes" "Provence-Alpes-Côte d'Azur" "Intérieur" "Oui" 12.13 3.86 -1.26 80.6 21 28.27 36.3 19.23 12.14
+"6" "06" "Alpes-Maritimes" "Provence-Alpes-Côte d'Azur" "Méditerranée" "Oui" 16.99 10.55 6.95 0 24.35 27.71 18.1 15.56 6.92
+"7" "07" "Ardèche" "Auvergne-Rhône-Alpes" "Intérieur" "Oui" 14.67 6.79 2.22 29 23.64 30.42 58.6 18.63 11.25
+"8" "08" "Ardennes" "Grand Est" "Intérieur" "Non" 11.02 4.47 1.27 65.4 18.22 25.02 12.7 15.2 10.56
+"9" "09" "Ariège" "Occitanie" "Intérieur" "Oui" 13.47 7.07 1.66 40.3 20.45 26.36 28.3 15.63 11.51
+"10" "10" "Aube" "Grand Est" "Intérieur" "Non" 12.4 5.49 2.19 47 20.08 26.77 24 16.13 10.48
+"11" "11" "Aude" "Occitanie" "Méditerranée" "Non" 16.05 9.28 6.01 3.1 23.69 28.6 32.9 16.49 8.05
+"12" "12" "Aveyron" "Occitanie" "Intérieur" "Oui" 12.19 4.91 1.28 46.3 20.23 26.34 24.9 17.68 9.63
+"13" "13" "Bouches-du-Rhône" "Provence-Alpes-Côte d'Azur" "Méditerranée" "Non" 16.12 8.89 5.16 4.6 24.19 28.84 34.6 17.17 8.25
+"14" "14" "Calvados" "Normandie" "Manche-Mer du Nord" "Non" 11.95 6.75 4.35 13.1 17.56 21.59 2.1 12.38 6.65
+"15" "15" "Cantal" "Auvergne-Rhône-Alpes" "Intérieur" "Oui" 11.5 4.56 0.42 60.7 18.98 25.44 19.6 16.42 10.61
+"16" "16" "Charente" "Nouvelle-Aquitaine" "Intérieur" "Non" 14.6 7.84 4.36 21.3 21.71 27.61 33.6 15.47 9.69
+"17" "17" "Charente-Maritime" "Nouvelle-Aquitaine" "Atlantique" "Non" 14.36 8.75 6.78 2.7 20.08 22.9 4 12.64 5.09
+"18" "18" "Cher" "Centre-Val de Loire" "Intérieur" "Non" 13.24 6.05 2.95 32.1 20.97 27 27.7 16.45 9.55
+"19" "19" "Corrèze" "Nouvelle-Aquitaine" "Intérieur" "Oui" 14.3 7.03 2.72 39.7 21.9 28.66 47.1 16.69 11.5
+"20" "21" "Côte-d'Or" "Bourgogne-Franche-Comté" "Intérieur" "Non" 12.58 4.76 1.53 49.3 21.24 27.48 30 18.1 9.82
+"21" "22" "Côtes-d'Armor" "Bretagne" "Manche-Mer du Nord" "Non" 12.48 8.09 5.63 5.7 17.19 20.91 1.1 10.53 6.4
+"22" "23" "Creuse" "Nouvelle-Aquitaine" "Intérieur" "Oui" 11.96 5.44 1.39 60.1 19.04 26.02 22.7 15.17 11.38
+"23" "24" "Dordogne" "Nouvelle-Aquitaine" "Intérieur" "Non" 13.88 7.01 2.5 45.7 21.13 28.24 40.4 15.73 12.04
+"24" "25" "Doubs" "Bourgogne-Franche-Comté" "Intérieur" "Oui" 12.57 4.93 1.79 46.7 20.85 26.73 24.3 17.47 9.38
+"25" "26" "Drôme" "Auvergne-Rhône-Alpes" "Intérieur" "Oui" 15.14 7.06 3.61 15 24.07 30.18 56.4 18.72 9.71
+"26" "27" "Eure" "Normandie" "Intérieur" "Non" 12.16 5.82 2.9 34.3 19.11 24.89 12.1 14.84 8.96
+"27" "28" "Eure-et-Loir" "Centre-Val de Loire" "Intérieur" "Non" 12.36 5.68 2.65 37.7 19.7 25.98 18.4 15.5 9.69
+"28" "29" "Finistère" "Bretagne" "Atlantique" "Non" 12.77 8.78 6.83 1.6 17.07 19.98 0.1 9.45 5.04
+"29" "2A" "Corse-du-Sud" "Corse" "Méditerranée" "Oui" 17.2 11.11 7.65 0.1 24.26 28.74 34.6 14.8 7.83
+"30" "2B" "Haute-Corse" "Corse" "Méditerranée" "Oui" 17.8 11.6 8.33 0.1 25.16 29.13 39.3 15.3 7.19
+"31" "30" "Gard" "Occitanie" "Méditerranée" "Non" 13.25 5.93 2.1 29.3 21.86 27.36 24.1 18.03 9.1
+"32" "31" "Haute-Garonne" "Occitanie" "Intérieur" "Non" 14.98 7.68 3.83 20 22.84 28.79 44.9 17.46 9.85
+"33" "32" "Gers" "Occitanie" "Intérieur" "Non" 14.53 7.49 2.9 31.6 22.08 28.47 43 16.75 11.24
+"34" "33" "Gironde" "Nouvelle-Aquitaine" "Atlantique" "Non" 15.17 8.83 5.32 12.9 21.77 26.9 22.4 14.71 8.97
+"35" "34" "Hérault" "Occitanie" "Méditerranée" "Non" 16.4 9.27 5.23 7.1 24.47 29.48 45 17.15 8.87
+"36" "35" "Ille-et-Vilaine" "Bretagne" "Manche-Mer du Nord" "Non" 12.79 7.42 4.48 16 18.49 23.48 6 12.35 8.28
+"37" "36" "Indre" "Centre-Val de Loire" "Intérieur" "Non" 12.98 6.14 2.87 37.9 20.42 26.95 27.7 15.77 10.21
+"38" "37" "Indre-et-Loire" "Centre-Val de Loire" "Intérieur" "Non" 13.36 6.7 3.93 23.9 20.64 26.42 23.1 15.48 8.9
+"39" "38" "Isère" "Auvergne-Rhône-Alpes" "Intérieur" "Oui" 12.95 4.6 0.53 57.3 21.68 28.42 39.4 18.92 11.06
+"40" "39" "Jura" "Bourgogne-Franche-Comté" "Intérieur" "Oui" 12.76 5.04 1.8 48.1 21.14 27.54 32.1 17.66 10
+"41" "40" "Landes" "Nouvelle-Aquitaine" "Atlantique" "Non" 15.18 8.88 4.84 15.1 21.71 26.89 25.1 14.9 9.6
+"42" "41" "Loir-et-Cher" "Centre-Val de Loire" "Intérieur" "Non" 12.72 6.09 2.73 45.4 19.98 26.86 26.4 15.31 10.72
+"43" "42" "Loire" "Auvergne-Rhône-Alpes" "Intérieur" "Oui" 12.61 5.16 1.19 53.1 20.69 27.24 32.9 17.22 10.75
+"44" "43" "Haute-Loire" "Auvergne-Rhône-Alpes" "Intérieur" "Oui" 10.28 3.12 -1.1 88.6 18.3 25.07 17.1 17.13 10.97
+"45" "44" "Loire-Atlantique" "Pays de la Loire" "Atlantique" "Non" 13.48 7.92 5.43 10.4 19.36 23.62 7.6 12.68 7.07
+"46" "45" "Loiret" "Centre-Val de Loire" "Intérieur" "Non" 12.59 5.85 2.91 39 19.91 26.21 20.6 15.51 9.61
+"47" "46" "Lot" "Occitanie" "Intérieur" "Non" 13.96 6.79 3.08 33.9 21.34 28 40.1 16.61 10.5
+"48" "47" "Lot-et-Garonne" "Nouvelle-Aquitaine" "Intérieur" "Non" 14.74 7.55 3.6 24.3 22.3 28.66 45 16.72 10.73
+"49" "48" "Lozère" "Occitanie" "Intérieur" "Oui" 10.86 3.62 -0.21 70 19.11 25.78 21.4 17.89 10.25
+"50" "49" "Maine-et-Loire" "Pays de la Loire" "Intérieur" "Non" 13.51 7.32 4.42 23.6 20.26 26.07 20.9 14.39 9.08
+"51" "50" "Manche" "Normandie" "Manche-Mer du Nord" "Non" 12.39 8.06 6.57 1.7 16.96 19.05 0.1 10.41 3.65
+"52" "51" "Marne" "Grand Est" "Intérieur" "Non" 11.84 5.06 2.03 45 19.3 25.68 16.4 15.74 9.8
+"53" "52" "Haute-Marne" "Grand Est" "Intérieur" "Non" 12.07 4.55 1.79 43 20.19 25.85 18.7 17.22 8.74
+"54" "53" "Mayenne" "Pays de la Loire" "Intérieur" "Non" 12.78 6.68 3.86 24.1 19.41 24.92 12.6 14.07 8.64
+"55" "54" "Meurthe-et-Moselle" "Grand Est" "Intérieur" "Non" 11.92 4.49 1.64 47.1 20.19 26.26 20 17.29 9.32
+"56" "55" "Meuse" "Grand Est" "Intérieur" "Non" 11.85 4.76 1.79 47.7 19.66 25.79 17.3 16.44 9.55
+"57" "56" "Morbihan" "Bretagne" "Atlantique" "Non" 13.47 8.71 6.55 3.1 18.49 22.08 4.3 10.89 6.01
+"58" "57" "Moselle" "Grand Est" "Intérieur" "Non" 11.93 4.36 1.63 46.4 20.29 25.97 18.6 17.58 8.81
+"59" "58" "Nièvre" "Bourgogne-Franche-Comté" "Intérieur" "Non" 12.5 5.57 1.88 54.6 20.04 27.04 28 16.01 11.18
+"60" "59" "Nord" "Hauts-de-France" "Manche-Mer du Nord" "Non" 12.41 6.4 3.99 13.4 18.96 22.98 4.6 14.2 6.6
+"61" "60" "Oise" "Hauts-de-France" "Intérieur" "Non" 11.97 5.58 2.71 40.9 19.07 25.06 12.6 14.98 9.18
+"62" "61" "Orne" "Normandie" "Intérieur" "Non" 12.21 6.02 3.16 34.6 18.96 24.65 11.7 14.3 8.97
+"63" "62" "Pas-de-Calais" "Hauts-de-France" "Manche-Mer du Nord" "Non" 12.02 6.54 4.33 14.3 17.84 21.24 3.9 12.98 5.93
+"64" "63" "Puy-de-Dôme" "Auvergne-Rhône-Alpes" "Intérieur" "Oui" 13.36 6.12 2.11 44.6 21.1 27.42 34.4 16.72 10.63
+"65" "64" "Pyrénées-Atlantiques" "Nouvelle-Aquitaine" "Atlantique" "Non" 15.31 9.69 5.77 7.9 21.1 25.33 14.4 13.63 8.5
+"66" "65" "Hautes-Pyrénées" "Occitanie" "Intérieur" "Oui" 13.73 7.33 2.26 31.1 20.53 25.76 22.7 15.45 10.62
+"67" "66" "Pyrénées-Orientales" "Occitanie" "Méditerranée" "Oui" 17.1 10.58 7.21 0.9 24.73 29.01 37.1 16.11 7.49
+"68" "67" "Bas-Rhin" "Grand Est" "Intérieur" "Non" 12.66 4.78 1.54 48.6 21.28 27.54 30.7 17.81 9.95
+"69" "68" "Haut-Rhin" "Grand Est" "Intérieur" "Non" 12.4 4.62 0.96 57.3 20.96 27.47 31.3 17.8 10.56
+"70" "69" "Rhône" "Auvergne-Rhône-Alpes" "Intérieur" "Non" 14.09 5.89 2.65 29.3 22.85 28.64 42.9 18.79 9.22
+"71" "70" "Haute-Saône" "Bourgogne-Franche-Comté" "Intérieur" "Non" 11.81 4.25 0.67 65.3 20.07 26.79 25.1 17.17 10.85
+"72" "71" "Saône-et-Loire" "Bourgogne-Franche-Comté" "Intérieur" "Non" 13.03 5.4 1.91 46.4 21.31 27.76 35 17.53 10.35
+"73" "72" "Sarthe" "Pays de la Loire" "Intérieur" "Non" 13.47 6.91 3.9 26.9 20.62 26.37 22.6 15.25 9.21
+"74" "73" "Savoie" "Auvergne-Rhône-Alpes" "Intérieur" "Oui" 12.36 3.87 -0.43 66.6 21.27 28.22 36.6 19.41 11.29
+"75" "74" "Haute-Savoie" "Auvergne-Rhône-Alpes" "Intérieur" "Oui" 10.87 3.37 0.16 62.3 19.25 24.42 7.4 17.82 8.4
+"76" "75" "Paris" "Île-de-France" "Intérieur" "Non" 13.83 6.92 4.6 13.6 21.33 26.34 20.7 15.9 7.61
+"77" "76" "Seine-Maritime" "Normandie" "Manche-Mer du Nord" "Non" 12.24 6.64 4.37 14 18.18 22.05 3.6 13.04 6.39
+"78" "77" "Seine-et-Marne" "Île-de-France" "Intérieur" "Non" 12.72 5.9 2.97 32.7 20.14 26.25 19.1 15.62 9.4
+"79" "78" "Yvelines" "Île-de-France" "Intérieur" "Non" 12.49 5.76 3.12 29.3 19.86 25.28 14 15.6 8.31
+"80" "79" "Deux-Sèvres" "Nouvelle-Aquitaine" "Intérieur" "Non" 13.82 7.25 3.98 24.4 20.84 26.77 26.7 15.07 9.52
+"81" "80" "Somme" "Hauts-de-France" "Manche-Mer du Nord" "Non" 11.85 5.65 3.02 27.1 18.54 23.75 9.3 14.49 8.06
+"82" "81" "Tarn" "Occitanie" "Intérieur" "Non" 14.75 6.99 2.66 31.1 22.99 29.57 56.9 18.33 11.08
+"83" "82" "Tarn-et-Garonne" "Occitanie" "Intérieur" "Non" 14.84 7.2 3.02 29.6 22.91 29.25 52.1 17.83 10.81
+"84" "83" "Var" "Provence-Alpes-Côte d'Azur" "Méditerranée" "Non" 16.91 10.56 7.07 0.1 24.32 28.65 29.3 15.34 7.59
+"85" "84" "Vaucluse" "Provence-Alpes-Côte d'Azur" "Intérieur" "Non" 15.58 7.31 2.22 30.1 24.73 31.94 75.4 19.32 12.18
+"86" "85" "Vendée" "Pays de la Loire" "Atlantique" "Non" 13.74 8.07 5.41 11.7 19.74 24.45 10.9 13 7.64
+"87" "86" "Vienne" "Nouvelle-Aquitaine" "Intérieur" "Non" 13.31 6.62 3.43 31.6 20.51 26.69 26.3 15.38 9.71
+"88" "87" "Haute-Vienne" "Nouvelle-Aquitaine" "Intérieur" "Non" 12.85 5.95 3.11 24.6 20.06 24.94 16.1 15.94 7.87
+"89" "88" "Vosges" "Grand Est" "Intérieur" "Oui" 12.15 4.56 1.11 56.7 20.53 27.02 26 17.42 10.43
+"90" "89" "Yonne" "Bourgogne-Franche-Comté" "Intérieur" "Non" 12.77 5.84 2.93 37.4 20.4 26.81 25.1 16.13 9.71
+"91" "90" "Territoire de Belfort" "Bourgogne-Franche-Comté" "Intérieur" "Oui" 12.02 4.27 1.03 54.6 20.57 26.68 23.4 17.76 9.68
+"92" "91" "Essonne" "Île-de-France" "Intérieur" "Non" 13.23 6.31 3.62 24.4 20.79 26.33 19.7 16.06 8.49
+"93" "92" "Hauts-de-Seine" "Île-de-France" "Intérieur" "Non" 12.54 5.75 3.22 26.6 19.94 24.98 13.1 15.72 7.77
+"94" "93" "Seine-Saint-Denis" "Île-de-France" "Intérieur" "Non" 13.16 6.43 3.64 26.7 20.56 25.89 16.7 15.58 8.47
+"95" "94" "Val-de-Marne" "Île-de-France" "Intérieur" "Non" 13.23 6.31 3.62 24.4 20.79 26.33 19.7 16.06 8.49
+"96" "95" "Val-d'Oise" "Île-de-France" "Intérieur" "Non" 12.79 6.16 3.38 29.3 20.07 25.68 15.3 15.39 8.71
