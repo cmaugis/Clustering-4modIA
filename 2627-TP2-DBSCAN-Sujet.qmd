@@ -55,7 +55,7 @@ data(Chameleon)
 
 ## DBSCAN à paramètres fixés
 
-**Question :** Pour rappel, l’algorithme DBSCAN dépend de deux paramètres : un rayon `eps` et un nombre minimal de points `minPts`. Appliquez l'algorithme DBSCAN avec les paramètres `minPts=` 25 et `eps=` 13 à l'aide de la fonction `dbscan()` de la librairie `dbscan`. Quels sont les effectifs par classe ? Combien de points ne sont pas classés ? Représentez la classification obtenue.
+**Question :** Pour rappel, l'algorithme DBSCAN dépend de deux paramètres : un rayon `eps` et un nombre minimal de points `minPts`. Appliquez l'algorithme DBSCAN avec les paramètres `minPts=` 25 et `eps=` 13 à l'aide de la fonction `dbscan()` de la librairie `dbscan`. Quels sont les effectifs par classe ? Combien de points ne sont pas classés ? Représentez la classification obtenue.
 
 ```{r}
 #| eval: false
@@ -243,11 +243,10 @@ alluvtwoclust <- function(classif1, classif2, nom1, nom2){
 
 ## Clustering par DBSCAN
 
-**Question :** Mettez en place un clustering des données températures par la méthode DBSCAN et analysez la classification obtenue. 
+**Question :** Mettez en place un clustering des données températures par la méthode DBSCAN et analysez la classification obtenue.
 
 ```{r}
 #| eval: false
 
 # A COMPLETER
 ```
-

@@ -355,7 +355,7 @@ profilclust <- function(clust, Data){
 # A FAIRE
 ```
 
-**Question :** Comparez la classification retenue par le critère BIC avec les classifications obtenues par l'algorithme des Kmeans en $K=5$ classes (cf. TP 1). 
+**Question :** Comparez la classification retenue par le critère BIC avec les classifications obtenues par l'algorithme des Kmeans en $K=5$ classes (cf. TP 1).
 
 ```{r}
 #| eval: false
@@ -467,4 +467,3 @@ table(resmixmod@bestResult@partition)
 ## A completer
 
 ```
-

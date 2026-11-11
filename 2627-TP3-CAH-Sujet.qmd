@@ -299,4 +299,3 @@ barplotClus <- function(clust, Data, J) {
 #| eval: false
 # A COMPLETER
 ```
-

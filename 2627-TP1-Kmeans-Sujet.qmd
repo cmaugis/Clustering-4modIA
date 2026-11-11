@@ -67,7 +67,7 @@ Chaque département est également décrit par les variables qualitatives suivan
 -   departement : le nom du département,
 -   region : la région administrative (13 régions),
 -   littoral : la façade maritime du département ("Manche-Mer du Nord", "Atlantique", "Méditerranée") ou "Intérieur" pour un département sans façade maritime,
--   massif : "Oui" si l'altitude moyenne du département est supérieure ou égale à 440 m, "Non" sinon 
+-   massif : "Oui" si l'altitude moyenne du département est supérieure ou égale à 440 m, "Non" sinon
 
 **Question 1.** Récupérez sur moodle le jeu de données `TemperaturesDepartements2018-2024.csv` et chargez-le sous R. Utilisez la variable `code_dep` comme nom des lignes puis supprimez-la.
 
@@ -110,7 +110,7 @@ resacp <- PCA(.....)
 
 ### Préparation des données
 
-**Question :** Pour la suite, on va utiliser l'ensemble des variables quantitatives pour faire de la classification non supervisée des départements. 
+**Question :** Pour la suite, on va utiliser l'ensemble des variables quantitatives pour faire de la classification non supervisée des départements.
 
 Pensez-vous qu'il est nécessaire de transformer les variables quantitatives dans l'objectif de clustering avec un algorithme des Kmeans ? Si oui, mettez en place cette transformation.
 
@@ -125,7 +125,7 @@ Xtemp <- temp[,quanti]
 
 ### Fonctions auxiliaires
 
-Pour la suite, vous pourrez visualiser les clusterings obtenus sur la carte de France à l'aide de la fonction `visualclust()` suivante : 
+Pour la suite, vous pourrez visualiser les clusterings obtenus sur la carte de France à l'aide de la fonction `visualclust()` suivante :
 
 ```{r}
 #| message: false
@@ -168,7 +168,7 @@ visualclust <- function(departements_geojson, varquali, codes = names(varquali))
 }
 ```
 
-Vous pourrez comparer deux clusterings à l'aide d'un graphique alluvial en utilisant la fonction `alluvtwoclust()` suivante : 
+Vous pourrez comparer deux clusterings à l'aide d'un graphique alluvial en utilisant la fonction `alluvtwoclust()` suivante :
 
 ```{r}
 alluvtwoclust<-function(classif1,classif2,nom1,nom2){
@@ -216,7 +216,7 @@ help(kmeans)
 reskmeans<-kmeans(....)
 ```
 
-**Question :** Combien a-ton de départements par classe ? Visualisez la classification obtenue dans le premier plan de l'ACP et géographiquement. 
+**Question :** Combien a-ton de départements par classe ? Visualisez la classification obtenue dans le premier plan de l'ACP et géographiquement.
 
 ```{r}
 #| eval: false
@@ -279,7 +279,7 @@ fviz_silhouette(aux)+theme(plot.title = element_text(size =9))
 rm(df,Silhou,aux)
 ```
 
-**Question :** Étudiez la classification en $K=5$ classes. Comparez cette classification avec celle en $K=3$. 
+**Question :** Étudiez la classification en $K=5$ classes. Comparez cette classification avec celle en $K=3$.
 
 ```{r}
 #| eval: false
@@ -346,8 +346,7 @@ L'algorithme fuzzy c-means a pour fonction objective
 
 $$
 \underset{W,\{m_1,\ldots,m_K\}}{\mbox{argmin}}\ \underset{i=1}{\stackrel{n}{\sum}}\underset{k=1}{\stackrel{K}{\sum}} (\omega_{ik})^\gamma\ \|x_i - m_k\|^2
-$$ 
-où $X=(x_1,\ldots,x_n)'$ est la matrice des données, $\gamma\in[1,+\infty[$, $m_k$ est le centre de la classe $\mathcal{C}_k$.
+$$ où $X=(x_1,\ldots,x_n)'$ est la matrice des données, $\gamma\in[1,+\infty[$, $m_k$ est le centre de la classe $\mathcal{C}_k$.
 
 Dans le même principe que l'algorithme des Kmeans, l'algorithme fuzzy c-means est un algorithme itératif :
 
@@ -524,4 +523,3 @@ Une seconde stratégie est de partir des coordonnées de l'analyse des correspon
 #| eval: false
 # A COMPLETER
 ```
-
